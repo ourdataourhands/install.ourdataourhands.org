@@ -130,5 +130,5 @@ if [ ! -d "$install_path/id" ]; then
 fi
 
 # Riseup!
-$SUDO chmod +x "$install_path/docker/riseup.sh"
-$SUDO cd "$install_path/docker/" && "./riseup.sh"
+"$SUDO chmod +x $install_path/docker/riseup.sh"
+"$SUDO cd $install_path/docker/ && ./riseup.sh"
