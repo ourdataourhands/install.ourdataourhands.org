@@ -131,4 +131,4 @@ fi
 
 # Riseup!
 $SUDO chmod +x "$install_path/docker/riseup.sh"
-$SUDO "$install_path/docker/riseup.sh"
+$SUDO cd "$install_path/docker/" && "./riseup.sh"
