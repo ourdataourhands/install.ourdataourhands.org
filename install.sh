@@ -131,4 +131,9 @@ fi
 
 # Riseup!
 cd "$install_path/docker"
-$SUDO ./riseup.sh
+arch=$($SUDO uname -m |grep arm)
+if [[ -z "$arch" ]]; then
+	$SUDO ./riseup.sh arm
+else
+	$SUDO ./riseup.sh x86
+fi
