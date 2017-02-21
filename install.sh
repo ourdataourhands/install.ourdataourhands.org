@@ -133,7 +133,9 @@ fi
 cd "$install_path/docker"
 arch=$($SUDO uname -m |grep arm)
 if [[ ! -z "$arch" ]]; then
+	echo "ARM, RISE UP!"
 	$SUDO ./riseup.sh arm
 else
+	echo "X86, RISE UP!"
 	$SUDO ./riseup.sh x86
 fi
