@@ -82,7 +82,7 @@ fi
 
 # Capacity to allocate to the grid by default
 if [[ ! -f "$install_path/capacity" ]]; then
-	$SUDO echo "4.5TB" > "$install_path/capacity"
+	$SUDO echo "4500GB" > "$install_path/capacity"
 	echo "Allocated default amount of 4.5TB for node contribution"
 fi
 
