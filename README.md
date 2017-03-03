@@ -1,5 +1,5 @@
 # Our Data Our Hands `curl|bash` Installation Script
-This repository contains the `curl|bash` install script served from http://install.ourdataourhands.org/ that installs the [Our Data Our Hands](http://ourdataourhands.org) grid contributor. The script has been tested on Debian Linux, both x86 and ARM varieties, but **is not guaranteed to work** on any other platform. We welcome your contribution through a pull request to add compatibility for your favorite operating system: see [our issues page](https://github.com/ourdataourhands/install.ourdataourhands.org/issues).
+This repository contains the `curl|bash` install script served from http://sh.ourdataourhands.org/ that installs the [Our Data Our Hands](http://ourdataourhands.org) grid contributor. The script has been tested on Debian Linux, both x86 and ARM varieties, but **is not guaranteed to work** on any other platform. In fact, it's not guaranteed to work on the tested platforms either, but we do our best! We welcome your contribution through a pull request to add compatibility for your favorite operating system, or to log bugs you've found. See [our issues page](https://github.com/ourdataourhands/install.ourdataourhands.org/issues) for more.
 
 The basic idea behind this script:
 
