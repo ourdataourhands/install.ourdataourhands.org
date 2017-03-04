@@ -26,7 +26,7 @@ fi
 ts="$(date +"%s")"
 
 # Public IP
-ip="$(curl -s http://icanhazip.com/)"
+ip="$(curl -s https://api.ipify.org/)"
 
 # Hostname
 host="$(hostname -f)"
