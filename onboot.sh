@@ -7,9 +7,8 @@
 curl http://sh.ourdataourhands.org/beacon.sh | bash -s boot
 
 # Vars
-log="~/boot.log"
+log="/home/pi/boot.log"
 riseup="/mnt/storage/docker/riseup.sh"
-touch $log
 
 # Updates
 sudo apt-get update >> $log
