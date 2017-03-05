@@ -11,7 +11,7 @@ log="/home/pi/boot.log"
 riseup="/mnt/storage/docker/riseup.sh"
 
 # Updates
-sudo apt-get update >> $log
+sudo apt-get update > $log
 sudo apt-get dist-upgrade >> $log
 sudo apt-get clean >> $log
 
