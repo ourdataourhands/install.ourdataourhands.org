@@ -8,7 +8,8 @@ log="/home/pi/boot.log"
 riseup="/mnt/storage/docker/riseup.sh"
 
 # Log the start
-echo date > $log
+dt="$(date)"
+echo "$dt" > $log
 
 # Phone home
 curl http://sh.ourdataourhands.org/beacon.sh | bash -s boot
