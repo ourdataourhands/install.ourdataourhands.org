@@ -2,6 +2,11 @@
 #
 # Our Data Our Hands onboot
 #
+# Runs using curl|bash in the rc.local file on boot.
+#
+# Report bugs here:
+# https://github.com/ourdataourhands/sh.ourdataourhands.org
+#
 
 # Vars
 log="/home/pi/boot.log"
