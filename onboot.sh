@@ -11,13 +11,13 @@ log="~/boot.log"
 riseup="/mnt/storage/docker/riseup.sh"
 
 # Updates
-apt-get update > $log
-apt-get dist-upgrade >> $log
+sudo apt-get update > $log
+sudo apt-get dist-upgrade >> $log
 sudo apt-get clean >> $log
 
 # Rise up!
 if [[ -f "$riseup" ]]; then
-	bash $riseup
+	sudo bash $riseup
 else
 	echo "$riseup not found" >> $log
 fi
