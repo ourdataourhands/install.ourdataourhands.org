@@ -17,7 +17,7 @@ dt="$(date)"
 echo "$dt" > $log
 
 # Phone home
-curl http://sh.ourdataourhands.org/beacon.sh | bash -s boot
+curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s boot
 
 # Updates
 sudo apt-get update >> $log

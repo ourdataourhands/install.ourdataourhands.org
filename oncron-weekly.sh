@@ -4,4 +4,4 @@
 #
 
 # This is just a test
-curl http://sh.ourdataourhands.org/beacon.sh | bash -s cronweekly
+curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s cronweekly
