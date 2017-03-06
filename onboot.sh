@@ -29,6 +29,7 @@ sudo apt-get clean >> $log
 echo "Rising up..."
 if [[ -f "$riseup" ]]; then
 	echo "Run $riseup..." >> $log
+	curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s riseup
 	sudo bash $riseup purge
 else
 	echo "$riseup not found" >> $log
