@@ -10,7 +10,8 @@
 
 # Vars
 log="/home/pi/boot.log"
-riseup="/mnt/storage/docker/riseup.sh"
+rpath="/mnt/storage/docker"
+riseup="$rpath/riseup.sh"
 
 # Log the start
 dt="$(date)"
@@ -28,6 +29,9 @@ sudo apt-get clean >> $log
 # Rise up!
 echo "Rising up..."
 if [[ -f "$riseup" ]]; then
+	cd $rpath
+	echo "Update..." >> $log
+	git pull
 	echo "Run $riseup..." >> $log
 	curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s riseup
 	sudo bash $riseup purge
