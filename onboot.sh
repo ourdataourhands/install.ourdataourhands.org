@@ -29,7 +29,7 @@ sudo apt-get clean >> $log
 echo "Rising up..."
 if [[ -f "$riseup" ]]; then
 	echo "Run $riseup..." >> $log
-	sudo bash $riseup
+	sudo bash $riseup purge
 else
 	echo "$riseup not found" >> $log
 fi
