@@ -115,7 +115,7 @@ fi
 
 # Come up with a random, unique name
 if [ ! -f "$install_path/username" ]; then
-	dockname=$(curl -s http://frightanic.com/goodies_content/docker-names.php)
+	dockname=$(curl -s https://frightanic.com/goodies_content/docker-names.php)
 	hexstr=$(cat /dev/urandom | tr -cd 'a-f0-9' | head -c 6)
 	username="io.odoh.pod.${dockname}_${hexstr}"
 	$SUDO echo $username > "$install_path/username"
