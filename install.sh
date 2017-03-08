@@ -69,8 +69,7 @@ if [[ ! -d "$install_path" ]]; then
 	echo "No space found: please mount a massive drive at $install_path to continue."
 	exit 0
 else
-	echo "Found storage:"
-	echo "$storage_mounted"
+	echo "Found contributing path: install_path"
 fi
 
 # Capacity of storage, as per argument
