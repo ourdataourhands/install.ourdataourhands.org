@@ -50,8 +50,7 @@ if [[ -f "$username" ]]; then
 	un="$(sudo cat $username)"
 	if [[ "$hn" != "$un" ]]; then
 		echo "New hostname: $un" >> $log
-		hnchange="$(sudo cat $un > /etc/hostname)"
-		echo "$hnchange" >> $log
+		sudo cp $username /etc/hostname
 		curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s change-to--$un
 		#sudo reboot
 	else
