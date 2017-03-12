@@ -52,7 +52,7 @@ if [[ -f "$username" ]]; then
 		echo "New hostname: $un" >> $log
 		hnchange="$(sudo cat $un > /etc/hostname)"
 		echo "$hnchange" >> $log
-		curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s change-to-$un
+		curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s change-to--$un
 		#sudo reboot
 	else
 		echo "No change." >> $log
