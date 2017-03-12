@@ -19,9 +19,6 @@ username="/mnt/storage/username"
 dt="$(date)"
 echo "$dt" > $log
 
-# Phone home
-curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s boot
-
 # Updates
 echo "Running updates..." >> $log
 sudo apt-get update -y >> $log
@@ -33,10 +30,15 @@ echo "First boot...  " >> $log
 if [[ -f "$firstboot" ]]; then
 	echo "yes, install!" >> $log
 	sudo rm -f $firstboot
+	# Phone home
+	curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s firstboot
+	# Install
 	curl -s http://sh.ourdataourhands.org/install.sh | bash
 	exit 1;
 else
 	echo "nope, continue..." >> $log
+	# Phone home
+	curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s boot
 fi
 
 # Set hostname
