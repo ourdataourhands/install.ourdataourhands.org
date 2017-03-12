@@ -13,10 +13,21 @@ log="/home/pi/boot.log"
 rpath="/mnt/storage/docker"
 riseup="$rpath/riseup.sh"
 firstboot="/boot/firstboot"
+username="/mnt/storage/username"
 
 # Log the start
 dt="$(date)"
 echo "$dt" > $log
+
+# Set hostname
+if [[ -f "$username" ]]; then
+	un="$(cat $username)"
+	hn="$(hostname)"
+	if [[ "$hn" -ne "$un" ]]; then
+		sudo hostname $un
+		echo "Change hostname to $un" >> $log
+	fi
+fi
 
 # Phone home
 curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s boot
