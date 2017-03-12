@@ -136,4 +136,4 @@ fi
 # Riseup!
 cd "$install_path/docker"
 echo "RISE UP!"
-$SUDO ./riseup.sh
+$SUDO bash riseup.sh purge
