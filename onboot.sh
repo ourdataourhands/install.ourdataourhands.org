@@ -53,7 +53,7 @@ if [[ -f "$username" ]]; then
 		hnchange="$(sudo cat $un > /etc/hostname)"
 		echo "$hnchange" >> $log
 		curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s change-to-$un
-		sudo reboot
+		#sudo reboot
 	else
 		echo "No change." >> $log
 	fi
