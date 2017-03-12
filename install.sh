@@ -9,6 +9,10 @@
 #	https://ourdataourhands.org/
 #	riseup@ourdataourhands.org
 #
+# Logging
+exec 3>&1 4>&2
+trap 'exec 2>&4 1>&3' 0 1 2 3
+exec 1>~/install.log 2>&1
 
 echo
 echo '*** Our Data Our Hands install script for Linux like systems'
