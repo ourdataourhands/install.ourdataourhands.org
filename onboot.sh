@@ -21,6 +21,7 @@ echo "$dt" > $log
 
 # Updates
 echo "Running updates..." >> $log
+curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s updates
 sudo apt-get update -y >> $log
 sudo apt-get dist-upgrade -y >> $log
 sudo apt-get clean -y >> $log
