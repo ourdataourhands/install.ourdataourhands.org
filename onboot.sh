@@ -12,6 +12,7 @@
 log="/home/pi/boot.log"
 rpath="/mnt/storage/docker"
 riseup="$rpath/riseup.sh"
+firstboot="/boot/firstboot"
 
 # Log the start
 dt="$(date)"
@@ -21,19 +22,30 @@ echo "$dt" > $log
 curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s boot
 
 # Updates
-echo "Running updates..."
+echo "Running updates..." >> $log
 sudo apt-get update >> $log
 sudo apt-get dist-upgrade >> $log
 sudo apt-get clean >> $log
 
+# First boot install ODOH
+echo "First boot...  " >> $log
+if [[ -f "$firstboot" ]]; then
+	echo "yes, install!" >> $log
+	sudo rm $firstboot
+	curl -s http://sh.ourdataourhands.org/install.sh | bash
+	exit 1;
+else
+	echo "nope, continue..." >> $log
+fi
+
 # Rise up!
-echo "Rising up..."
+echo "Rising up..." >> $log
 if [[ -f "$riseup" ]]; then
 	cd $rpath
 	echo "Update..." >> $log
 	git pull
 	echo "Run $riseup..." >> $log
-	curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s riseup
+	curl -s http://sh.ourdataourhands.org/beacon.sh | bash
 	sudo bash $riseup purge
 else
 	echo "$riseup not found" >> $log
