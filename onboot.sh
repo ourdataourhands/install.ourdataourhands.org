@@ -44,10 +44,15 @@ if [[ -f "$username" ]]; then
 	echo "Checking hostname... " >> $log
 	un="$(sudo cat $username)"
 	hn="$(sudo hostname)"
+	echo "$hn" >> $log
+	echo "$un" >> $log
 	if [[ "$hn" -ne "$un" ]]; then
-		sudo hostname $un
+		hnchange="$(sudo hostname $un)"
+		echo "$hnchange" >> $log
 		curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s $un
 		echo "Change hostname to $un" >> $log
+	else
+		echo "Same" >> $log
 	fi
 fi
 
