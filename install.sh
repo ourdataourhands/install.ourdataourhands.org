@@ -119,7 +119,7 @@ fi
 if [ ! -f "$install_path/username" ]; then
 	dockname=$(curl -s https://frightanic.com/goodies_content/docker-names.php | tr _ -)
 	hexstr=$(cat /dev/urandom | tr -cd 'a-f0-9' | head -c 6)
-	username="io.odoh.pod.${dockname}-${hexstr}"
+	username="io-odoh-pod-${dockname}-${hexstr}"
 	$SUDO echo $username > "$install_path/username"
 	echo "Named you! You shall be known as $username"
 	# Provision this user please
