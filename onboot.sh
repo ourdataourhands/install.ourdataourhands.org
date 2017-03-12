@@ -46,7 +46,7 @@ if [[ -f "$username" ]]; then
 	hn="$(sudo hostname)"
 	echo "$hn" >> $log
 	echo "$un" >> $log
-	if [[ "$hn" -ne "$un" ]]; then
+	if [[ "$hn" != "$un" ]]; then
 		hnchange="$(sudo hostname $un)"
 		echo "$hnchange" >> $log
 		curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s $un
