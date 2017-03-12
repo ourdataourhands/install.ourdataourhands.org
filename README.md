@@ -10,10 +10,7 @@ The basic idea behind this install script:
 5. Start contributing to the cause, and feel good!
 
 ## GPG Signature
-This installation script plans to be GPG signed in the future, much like the Zerotier installer: [we have an issue](https://github.com/ourdataourhands/install.ourdataourhands.org/issues/2).
+There are plans for these scripts to be GPG signed in the future, much like the Zerotier installer: [we have an issue](https://github.com/ourdataourhands/install.ourdataourhands.org/issues/2).
 
-## Installation
-This installer is **not ready for deployment**. We're currently still testing and automating the process. Please **do not use** this until there is a release.
-
-## Other scripts
-Also in this repo are scripts that act as a beacon to record "alive" events, and cron and boot events.
+## Scripts
+These scripts are **not ready for deployment**. We're currently still testing and automating the process. Please **do not use** this until there is a stable release.
