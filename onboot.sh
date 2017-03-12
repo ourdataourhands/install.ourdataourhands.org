@@ -44,17 +44,17 @@ fi
 # Set hostname
 if [[ -f "$username" ]]; then
 	echo "Checking hostname... " >> $log
-	un="$(sudo cat $username)"
 	hn="$(sudo hostname)"
-	echo "$hn" >> $log
-	echo "$un" >> $log
+	echo "Current hostname: $hn" >> $log
+	un="$(sudo cat $username)"
 	if [[ "$hn" != "$un" ]]; then
+		echo "New hostname: $un" >> $log
 		hnchange="$(sudo hostname $un)"
 		echo "$hnchange" >> $log
 		curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s $un
 		echo "Change hostname to $un" >> $log
 	else
-		echo "Same" >> $log
+		echo "No change." >> $log
 	fi
 fi
 
