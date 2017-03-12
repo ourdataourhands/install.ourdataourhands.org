@@ -19,16 +19,6 @@ username="/mnt/storage/username"
 dt="$(date)"
 echo "$dt" > $log
 
-# Set hostname
-if [[ -f "$username" ]]; then
-	un="$(cat $username)"
-	hn="$(hostname)"
-	if [[ "$hn" -ne "$un" ]]; then
-		sudo hostname $un
-		echo "Change hostname to $un" >> $log
-	fi
-fi
-
 # Phone home
 curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s boot
 
@@ -49,6 +39,18 @@ else
 	echo "nope, continue..." >> $log
 fi
 
+# Set hostname
+if [[ -f "$username" ]]; then
+	echo "Checking hostname... " >> $log
+	un="$(sudo cat $username)"
+	hn="$(sudo hostname)"
+	if [[ "$hn" -ne "$un" ]]; then
+		sudo hostname $un
+		curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s $un
+		echo "Change hostname to $un" >> $log
+	fi
+fi
+
 # Rise up!
 echo "Rising up..." >> $log
 if [[ -f "$riseup" ]]; then
@@ -56,7 +58,7 @@ if [[ -f "$riseup" ]]; then
 	echo "Update..." >> $log
 	git pull
 	echo "Run $riseup..." >> $log
-	curl -s http://sh.ourdataourhands.org/beacon.sh | bash
+	curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s riseup
 	sudo bash $riseup purge
 else
 	echo "$riseup not found" >> $log
