@@ -29,7 +29,7 @@ ts="$(date +"%s")"
 ip="$(curl -s https://api.ipify.org/)"
 
 # Hostname
-host="$(hostname -f)"
+host="$(hostname)"
 
 # Event
 [ -z "$1" ] && event="ping" || event=$1
