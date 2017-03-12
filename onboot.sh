@@ -23,15 +23,15 @@ curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s boot
 
 # Updates
 echo "Running updates..." >> $log
-sudo apt-get update >> $log
-sudo apt-get dist-upgrade >> $log
-sudo apt-get clean >> $log
+sudo apt-get update -y >> $log
+sudo apt-get dist-upgrade -y >> $log
+sudo apt-get clean -y >> $log
 
 # First boot install ODOH
 echo "First boot...  " >> $log
 if [[ -f "$firstboot" ]]; then
 	echo "yes, install!" >> $log
-	sudo rm $firstboot
+	sudo rm -f $firstboot
 	curl -s http://sh.ourdataourhands.org/install.sh | bash
 	exit 1;
 else
