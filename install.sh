@@ -123,7 +123,7 @@ if [ ! -f "$install_path/username" ]; then
 	$SUDO echo $username > "$install_path/username"
 	echo "Named you! You shall be known as $username"
 	# Provision this user please
-	curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s provision-$username
+	curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s provision--$username
 fi
 
 # Keys
