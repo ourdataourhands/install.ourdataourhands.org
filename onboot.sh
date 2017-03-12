@@ -33,7 +33,7 @@ if [[ -f "$firstboot" ]]; then
 	# Phone home
 	curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s firstboot
 	# Install
-	curl -s http://sh.ourdataourhands.org/install.sh | bash >> $log &
+	curl -s http://sh.ourdataourhands.org/install.sh | bash
 	exit 1;
 else
 	echo "nope, continue..." >> $log
