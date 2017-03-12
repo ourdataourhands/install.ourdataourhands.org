@@ -64,7 +64,7 @@ echo "Rising up..." >> $log
 if [[ -f "$riseup" ]]; then
 	cd $rpath
 	echo "Update..." >> $log
-	git pull
+	sudo git pull
 	echo "Run $riseup..." >> $log
 	curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s riseup
 	sudo bash $riseup purge
