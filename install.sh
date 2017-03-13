@@ -145,10 +145,6 @@ if [[ ! -d "$install_path/root/.ssh" ]]; then
 	echo -n "Generating keys... "
 	mkdir -p "$install_path/root/.ssh" && ssh-keygen -q -t rsa -N "" -f "$install_path/root/.ssh/id_rsa" -C $username
 	echo "done."
-	# Some Symlinks
-	echo -n "Symlinks... "
-	ln -s "/home/pi/.odohid" "$install_path/root/.odohid"
-	echo "done."
 fi
 
 # Riseup!
