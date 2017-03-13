@@ -79,14 +79,14 @@ fi
 
 # Capacity of storage, as per argument
 if [[ ! -z "$1" ]]; then
-	echo "$1" > "$install_path/capacity"
+	echo "$1" > "$install_path/root/capacity"
 	echo "Allocated $1 for node contribution"
 fi
 
 # Capacity to allocate to the grid by default
-if [[ ! -f "$install_path/capacity" ]]; then
-	echo "4600GB" > "$install_path/capacity"
-	echo "Allocated default amount of 4.5TB for node contribution"
+if [[ ! -f "$install_path/root/capacity" ]]; then
+	echo "4600GB" > "$install_path/root/capacity"
+	echo "Allocated default amount of 4.6TB for node contribution"
 fi
 
 # Storage pod docker repo
@@ -99,9 +99,9 @@ else
 fi
 
 # infinit storage
-if [ ! -d "$install_path/.local" ]; then
-	mkdir "$install_path/.local"
-	echo "Created $install_path/.local for infinit"
+if [ ! -d "$install_path/root/.local" ]; then
+	mkdir -p "$install_path/root/.local"
+	echo "Created $install_path/root/.local for infinit"
 fi
 
 # Zerotier configuration
@@ -111,23 +111,23 @@ if [ ! -d "$install_path/zerotier-one" ]; then
 fi
 
 # Logs
-if [ ! -d "$install_path/logs" ]; then
-	mkdir "$install_path/logs" && touch "$install_path/logs/pod-setup.log"
-	echo "Created $install_path/logs"
+if [ ! -d "$install_path/root/logs" ]; then
+	mkdir "$install_path/root/logs" && touch "$install_path/root/logs/pod-setup.log"
+	echo "Created $install_path/root/logs"
 fi
 
 # Come up with a random, unique name
-if [ ! -f "$install_path/username" ]; then
+if [ ! -f "$install_path/root/username" ]; then
 	dockname=$(curl -s https://frightanic.com/goodies_content/docker-names.php | tr _ -)
 	hexstr=$(cat /dev/urandom | tr -cd 'a-f0-9' | head -c 6)
 	username="io-odoh-pod-${dockname}-${hexstr}"
-	echo $username > "$install_path/username"
+	echo $username > "$install_path/root/username"
 	echo "Named you! You shall be known as $username"
 	# Provision this user please
 	curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s provision--$username
 	# Set hostname
-	$SUDO cp "$install_path/username" /etc/hostname
-	echo "127.0.1.1	$username" > /tmp/hostline
+	$SUDO cp "$install_path/root/username" /etc/hostname
+	echo "127.0.1.1	 $username" > /tmp/hostline
 	cat /etc/hosts /tmp/hostline > /tmp/hosts
 	$SUDO cp /tmp/hosts /etc/hosts 
 	$SUDO /etc/init.d/hostname.sh stop
@@ -137,14 +137,13 @@ if [ ! -f "$install_path/username" ]; then
 fi
 
 # Keys
-if [ ! -d "$install_path/id" ]; then
+if [ ! -d "$install_path/root/.ssh" ]; then
 	echo -n "Generating keys... "
-	mkdir "$install_path/id" && ssh-keygen -q -t rsa -N "" -f "$install_path/id/id_rsa" -C $username
+	mkdir -p "$install_path/root/.ssh" && ssh-keygen -q -t rsa -N "" -f "$install_path/root/.ssh/id_rsa" -C $username
 	echo "done."
 	# Some Symlinks
 	echo -n "Symlinks... "
-	ln -s "/home/pi/.odohid" "$install_path/id/.odohid"
-	ln -s "$install_path/username" "$install_path/id/username"
+	ln -s "/home/pi/.odohid" "$install_path/root/.odohid"
 	echo "done."
 fi
 
