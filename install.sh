@@ -76,6 +76,12 @@ else
 	echo "Found contributing path: $install_path"
 fi
 
+# Check for root folder
+if [[ ! -d "$install_path/root" ]]; then
+	mkdir "$install_path/root"
+	echo "Created $install_path/root"
+fi
+
 # Capacity of storage, as per argument
 if [[ ! -z "$1" ]]; then
 	echo "$1" > "$install_path/root/capacity"
