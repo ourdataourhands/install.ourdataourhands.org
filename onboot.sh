@@ -7,9 +7,12 @@
 # Report bugs here:
 # https://github.com/ourdataourhands/sh.ourdataourhands.org
 #
+# Logging
+exec 3>&1 4>&2
+trap 'exec 2>&4 1>&3' 0 1 2 3
+exec 1>~/boot.log 2>&1
 
 # Vars
-log="/home/pi/boot.log"
 rpath="/mnt/storage/docker"
 riseup="$rpath/riseup.sh"
 firstboot="/boot/firstboot"
@@ -17,18 +20,18 @@ username="/mnt/storage/username"
 
 # Log the start
 dt="$(date)"
-echo "Start $dt" > $log
+echo "Start $dt"
 
 # Updates
-echo "Running updates..." >> $log
+echo "Running updates..."
 curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s updates-on-boot
-sudo apt-get update -y >> $log
-sudo apt-get dist-upgrade -y >> $log
-sudo apt-get clean -y >> $log
+sudo apt-get update -y
+sudo apt-get dist-upgrade -y
+sudo apt-get clean -y
 
 # First boot?
 if [[ -f "$firstboot" ]]; then
-	echo "My first time, install! :)" >> $log
+	echo "My first time, install! :)"
 	sudo rm -f $firstboot
 	# Phone home
 	curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s firstboot
@@ -40,14 +43,14 @@ else
 	# Rise up!
 	if [[ -f "$riseup" ]]; then
 		cd $rpath
-		echo "Pull the latest code into $rpath" >> $log
+		echo "Pull the latest code into $rpath"
 		git pull
-		echo "RISE UP!" >> $log
+		echo "RISE UP!"
 		# Phone home
 		curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s riseup
 		bash $riseup purge
 	else
-		echo "$riseup not found, stop." >> $log
+		echo "$riseup not found, stop."
 		exit 0;
 	fi
 fi
