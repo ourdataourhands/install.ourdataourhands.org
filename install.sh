@@ -147,6 +147,13 @@ if [[ ! -d "$install_path/root/.ssh" ]]; then
 	echo "done."
 fi
 
+# Copy unique ID
+if [[ ! -f "$install_path/root/.odohid" ]]; then
+	echo -n "Copy .odohid over to $install_path/root/... ";
+	cp ~/.odohid "$install_path/root/"
+	echo "done.";
+fi
+
 # Riseup!
 cd "$install_path/docker"
 echo "RISE UP!"
