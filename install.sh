@@ -15,10 +15,10 @@ exec 1>~/install.log 2>&1
 
 echo
 echo '*** Our Data Our Hands install script for Linux like systems'
-echo '*** Initial support is limited to Debian on x86_64 and arm'
+echo '*** Support is limited to Debian on x86_64 and Raspbian on ARM'
 echo
-echo '*** Please report issues to riseup@ourdataourhands.org'
-echo '*** or use the github issue tracker located here https://git.io/vDd6D'
+echo '*** Please report any bugs you find here:'
+echo '*** https://github.com/ourdataourhands/sh.ourdataourhands.org'
 echo
 echo
 
