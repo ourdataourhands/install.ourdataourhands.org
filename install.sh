@@ -76,24 +76,6 @@ else
 	echo "Found contributing path: $install_path"
 fi
 
-# Check for root folder
-if [[ ! -d "$install_path/root" ]]; then
-	mkdir "$install_path/root"
-	echo "Created $install_path/root"
-fi
-
-# Capacity of storage, as per argument
-if [[ ! -z "$1" ]]; then
-	echo "$1" > "$install_path/root/capacity"
-	echo "Allocated $1 for node contribution"
-fi
-
-# Capacity to allocate to the grid by default
-if [[ ! -f "$install_path/root/capacity" ]]; then
-	echo "4600GB" > "$install_path/root/capacity"
-	echo "Allocated default amount of 4.6TB for node contribution"
-fi
-
 # Storage pod docker repo
 if [[ -d "$install_path/docker/.git" ]]; then
 	echo "Found ODOH docker repo, pulling latest"
@@ -103,29 +85,47 @@ else
 	git clone https://github.com/ourdataourhands/storage-pod-docker.git "$install_path/docker"
 fi
 
-# infinit storage
-if [[ ! -d "$install_path/root/.local" ]]; then
-	mkdir -p "$install_path/root/.local"
-	echo "Created $install_path/root/.local for infinit"
-fi
-
 # Zerotier configuration
 if [[ ! -d "$install_path/zerotier-one" ]]; then
 	mkdir -p "$install_path/zerotier-one"
 	echo "Created $install_path/zerotier-one for Zerotier network"
 fi
 
+# Check for root folder
+if [[ ! -d "$install_path/root" ]]; then
+	mkdir -p "$install_path/root"
+	echo "Created $install_path/root home"
+fi
+
+# infinit storage
+if [[ ! -d "$install_path/root/.local" ]]; then
+	mkdir -p "$install_path/root/.local"
+	echo "Created $install_path/root/.local for infinit"
+fi
+
+# Capacity of storage, as per argument
+if [[ ! -z "$1" ]]; then
+	echo "$1" > "$install_path/root/capacity"
+	echo "Allocated $1 for node contribution in $install_path/root/capacity"
+fi
+
+# Capacity to allocate to the grid by default
+if [[ ! -f "$install_path/root/capacity" ]]; then
+	echo "4600GB" > "$install_path/root/capacity"
+	echo "Allocated the default amount of 4.6TB for node contribution in $install_path/root/capacity"
+fi
+
 # Logs
 if [[ ! -d "$install_path/root/logs" ]]; then
 	mkdir -p "$install_path/root/logs" && touch "$install_path/root/logs/pod-setup.log"
-	echo "Created $install_path/root/logs"
+	echo "Created empty $install_path/root/logs/pod-setup.log"
 fi
 
 # Come up with a random, unique name
 if [[ ! -f "$install_path/root/username" ]]; then
-	dockname=$(curl -s https://frightanic.com/goodies_content/docker-names.php | tr _ -)
-	hexstr=$(cat /dev/urandom | tr -cd 'a-f0-9' | head -c 6)
-	username="io-odoh-pod-${dockname}-${hexstr}"
+	dockname="$(curl -s https://frightanic.com/goodies_content/docker-names.php)"
+	hexstr="$(date | md5sum | head -c 8)"
+	username="io-odoh-pod-${dockname//_/-}-${hexstr}"
 	echo $username > "$install_path/root/username"
 	echo "Named you! You shall be known as $username"
 	# Provision this user please
@@ -138,7 +138,6 @@ if [[ ! -f "$install_path/root/username" ]]; then
 	$SUDO /etc/init.d/hostname.sh stop
 	$SUDO /etc/init.d/hostname.sh start
 	curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s change-to--$username
-
 fi
 
 # Keys
