@@ -24,8 +24,8 @@ echo
 
 # Check to see we have elevated permissions
 SUDO=
-if [ "$UID" != "0" ]; then
-	if [ -e /usr/bin/sudo -o -e /bin/sudo ]; then
+if [[ "$UID" != "0" ]]; then
+	if [[ -e /usr/bin/sudo -o -e /bin/sudo ]]; then
 		SUDO=sudo
 	else
 		echo
@@ -95,7 +95,7 @@ if [[ ! -f "$install_path/root/capacity" ]]; then
 fi
 
 # Storage pod docker repo
-if [ -d "$install_path/docker/.git" ]; then
+if [[ -d "$install_path/docker/.git" ]]; then
 	echo "Found ODOH docker repo, pulling latest"
 	git -C "$install_path/docker/" pull
 else
@@ -104,25 +104,25 @@ else
 fi
 
 # infinit storage
-if [ ! -d "$install_path/root/.local" ]; then
+if [[ ! -d "$install_path/root/.local" ]]; then
 	mkdir -p "$install_path/root/.local"
 	echo "Created $install_path/root/.local for infinit"
 fi
 
 # Zerotier configuration
-if [ ! -d "$install_path/zerotier-one" ]; then
+if [[ ! -d "$install_path/zerotier-one" ]]; then
 	mkdir -p "$install_path/zerotier-one"
 	echo "Created $install_path/zerotier-one for Zerotier network"
 fi
 
 # Logs
-if [ ! -d "$install_path/root/logs" ]; then
+if [[ ! -d "$install_path/root/logs" ]]; then
 	mkdir -p "$install_path/root/logs" && touch "$install_path/root/logs/pod-setup.log"
 	echo "Created $install_path/root/logs"
 fi
 
 # Come up with a random, unique name
-if [ ! -f "$install_path/root/username" ]; then
+if [[ ! -f "$install_path/root/username" ]]; then
 	dockname=$(curl -s https://frightanic.com/goodies_content/docker-names.php | tr _ -)
 	hexstr=$(cat /dev/urandom | tr -cd 'a-f0-9' | head -c 6)
 	username="io-odoh-pod-${dockname}-${hexstr}"
@@ -142,7 +142,7 @@ if [ ! -f "$install_path/root/username" ]; then
 fi
 
 # Keys
-if [ ! -d "$install_path/root/.ssh" ]; then
+if [[ ! -d "$install_path/root/.ssh" ]]; then
 	echo -n "Generating keys... "
 	mkdir -p "$install_path/root/.ssh" && ssh-keygen -q -t rsa -N "" -f "$install_path/root/.ssh/id_rsa" -C $username
 	echo "done."
