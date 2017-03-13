@@ -17,7 +17,7 @@ username="/mnt/storage/username"
 
 # Log the start
 dt="$(date)"
-echo "$dt" > $log
+echo "Start $dt" > $log
 
 # Updates
 echo "Running updates..." >> $log
@@ -26,47 +26,30 @@ sudo apt-get update -y >> $log
 sudo apt-get dist-upgrade -y >> $log
 sudo apt-get clean -y >> $log
 
-# First boot install ODOH
-echo "First boot...  " >> $log
+# First boot?
 if [[ -f "$firstboot" ]]; then
-	echo "yes, install!" >> $log
+	echo "My first time, install! :)" >> $log
 	sudo rm -f $firstboot
 	# Phone home
 	curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s firstboot
 	# Install
 	curl -s http://sh.ourdataourhands.org/install.sh | bash
-	exit 1;
 else
-	echo "nope, continue..." >> $log
 	# Phone home
 	curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s boot
-fi
-
-# Set hostname
-if [[ -f "$username" ]]; then
-	echo "Checking hostname... " >> $log
-	hn="$(sudo hostname)"
-	echo "Current hostname: $hn" >> $log
-	un="$(sudo cat $username)"
-	if [[ "$hn" != "$un" ]]; then
-		echo "New hostname: $un" >> $log
-		sudo cp $username /etc/hostname
-		curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s change-to--$un
-		#sudo reboot
+	# Rise up!
+	if [[ -f "$riseup" ]]; then
+		cd $rpath
+		echo "Pull the latest code into $rpath" >> $log
+		git pull
+		echo "RISE UP!" >> $log
+		# Phone home
+		curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s riseup
+		bash $riseup purge
 	else
-		echo "No change." >> $log
+		echo "$riseup not found, stop." >> $log
+		exit 0;
 	fi
 fi
 
-# Rise up!
-echo "Rising up..." >> $log
-if [[ -f "$riseup" ]]; then
-	cd $rpath
-	echo "Update..." >> $log
-	sudo git pull
-	echo "Run $riseup..." >> $log
-	curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s riseup
-	sudo bash $riseup purge
-else
-	echo "$riseup not found" >> $log
-fi
+	

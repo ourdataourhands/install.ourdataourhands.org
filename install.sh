@@ -39,7 +39,7 @@ if [ "$UID" != "0" ]; then
 fi
 
 # Check if docker is installed
-docker_installed=$($SUDO docker -v | grep "Docker version")
+docker_installed=$(docker -v | grep "Docker version")
 if [[ -z "$docker_installed" ]]; then
 	echo "Docker not found: please install docker to continue."
 	exit 0
@@ -48,7 +48,7 @@ else
 fi
 
 # Check for OpenSSL
-openssl_installed=$($SUDO openssl version | grep "OpenSSL ")
+openssl_installed=$(openssl version | grep "OpenSSL ")
 if [[ -z "$openssl_installed" ]]; then
 	echo "OpenSSL not found: please install OpenSSL to continue."
 	exit 0
@@ -57,7 +57,7 @@ else
 fi
 
 # Check for git
-git_installed=$($SUDO git --version | grep "git version ")
+git_installed=$(git --version | grep "git version ")
 if [[ -z "$git_installed" ]]; then
 	echo "git not found: please install git to continue."
 	exit 0
@@ -69,7 +69,7 @@ fi
 install_path="/mnt/storage"
 
 # Check if a drive is mounted at /mnt/storage
-storage_mounted=$($SUDO df -h | grep "$install_path")
+storage_mounted=$(df -h | grep "$install_path")
 if [[ -z "$storage_mounted" ]]; then
 	echo "Drive not found: please mount a massive drive at $install_path to continue."
 	exit 0
@@ -79,40 +79,40 @@ fi
 
 # Capacity of storage, as per argument
 if [[ ! -z "$1" ]]; then
-	$SUDO echo "$1" > "$install_path/capacity"
+	echo "$1" > "$install_path/capacity"
 	echo "Allocated $1 for node contribution"
 fi
 
 # Capacity to allocate to the grid by default
 if [[ ! -f "$install_path/capacity" ]]; then
-	$SUDO echo "4500GB" > "$install_path/capacity"
+	echo "4600GB" > "$install_path/capacity"
 	echo "Allocated default amount of 4.5TB for node contribution"
 fi
 
 # Storage pod docker repo
 if [ -d "$install_path/docker/.git" ]; then
 	echo "Found ODOH docker repo, pulling latest"
-	$SUDO git -C "$install_path/docker/" pull
+	git -C "$install_path/docker/" pull
 else
 	echo "Cloning ODOH docker repo"
-	$SUDO git clone https://github.com/ourdataourhands/storage-pod-docker.git "$install_path/docker"
+	git clone https://github.com/ourdataourhands/storage-pod-docker.git "$install_path/docker"
 fi
 
 # infinit storage
 if [ ! -d "$install_path/.local" ]; then
-	$SUDO mkdir "$install_path/.local"
+	mkdir "$install_path/.local"
 	echo "Created $install_path/.local for infinit"
 fi
 
 # Zerotier configuration
 if [ ! -d "$install_path/zerotier-one" ]; then
-	$SUDO mkdir "$install_path/zerotier-one"
+	mkdir "$install_path/zerotier-one"
 	echo "Created $install_path/zerotier-one for Zerotier network"
 fi
 
 # Logs
 if [ ! -d "$install_path/logs" ]; then
-	$SUDO mkdir "$install_path/logs" && $SUDO touch "$install_path/logs/pod-setup.log"
+	mkdir "$install_path/logs" && touch "$install_path/logs/pod-setup.log"
 	echo "Created $install_path/logs"
 fi
 
@@ -121,20 +121,29 @@ if [ ! -f "$install_path/username" ]; then
 	dockname=$(curl -s https://frightanic.com/goodies_content/docker-names.php | tr _ -)
 	hexstr=$(cat /dev/urandom | tr -cd 'a-f0-9' | head -c 6)
 	username="io-odoh-pod-${dockname}-${hexstr}"
-	$SUDO echo $username > "$install_path/username"
+	echo $username > "$install_path/username"
 	echo "Named you! You shall be known as $username"
 	# Provision this user please
 	curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s provision--$username
+	# Set hostname
+	$SUDO cp "$install_path/username" /etc/hostname
+	echo "127.0.1.1	$username" > /tmp/hostline
+	cat /etc/hosts /tmp/hostline > /tmp/hosts
+	$SUDO cp /tmp/hosts /etc/hosts 
+	$SUDO /etc/init.d/hostname.sh stop
+	$SUDO /etc/init.d/hostname.sh start
+	curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s change-to--$un
+
 fi
 
 # Keys
 if [ ! -d "$install_path/id" ]; then
 	echo -n "Generating keys... "
-	$SUDO mkdir "$install_path/id" && $SUDO ssh-keygen -q -t rsa -N "" -f "$install_path/id/id_rsa" -C $username
+	mkdir "$install_path/id" && ssh-keygen -q -t rsa -N "" -f "$install_path/id/id_rsa" -C $username
 	echo "done."
 fi
 
 # Riseup!
 cd "$install_path/docker"
 echo "RISE UP!"
-$SUDO bash riseup.sh purge
+bash riseup.sh purge
