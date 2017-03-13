@@ -73,7 +73,7 @@ if [[ -z "$storage_mounted" ]]; then
 	echo "Drive not found: please mount a massive drive at $install_path to continue."
 	exit 0
 else
-	echo "Found contributing path: install_path"
+	echo "Found contributing path: $install_path"
 fi
 
 # Capacity of storage, as per argument
@@ -105,13 +105,13 @@ fi
 
 # Zerotier configuration
 if [ ! -d "$install_path/zerotier-one" ]; then
-	mkdir "$install_path/zerotier-one"
+	mkdir -p "$install_path/zerotier-one"
 	echo "Created $install_path/zerotier-one for Zerotier network"
 fi
 
 # Logs
 if [ ! -d "$install_path/root/logs" ]; then
-	mkdir "$install_path/root/logs" && touch "$install_path/root/logs/pod-setup.log"
+	mkdir -p "$install_path/root/logs" && touch "$install_path/root/logs/pod-setup.log"
 	echo "Created $install_path/root/logs"
 fi
 
