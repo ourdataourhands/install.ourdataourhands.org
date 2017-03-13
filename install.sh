@@ -69,8 +69,9 @@ fi
 install_path="/mnt/storage"
 
 # Check if a drive is mounted at /mnt/storage
-if [[ ! -d "$install_path" ]]; then
-	echo "No space found: please mount a massive drive at $install_path to continue."
+storage_mounted=$($SUDO df -h | grep "$install_path")
+if [[ -z "$storage_mounted" ]]; then
+	echo "Drive not found: please mount a massive drive at $install_path to continue."
 	exit 0
 else
 	echo "Found contributing path: install_path"
