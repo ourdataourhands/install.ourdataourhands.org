@@ -24,8 +24,8 @@ echo
 
 # Check to see we have elevated permissions
 SUDO=
-if [[ "$UID" != "0" ]]; then
-	if [[ -e /usr/bin/sudo -o -e /bin/sudo ]]; then
+if [ "$UID" != "0" ]; then
+	if [ -e /usr/bin/sudo -o -e /bin/sudo ]; then
 		SUDO=sudo
 	else
 		echo
