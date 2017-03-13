@@ -3,11 +3,10 @@
 # Our Data Our Hands install script
 #
 # This script tries to setup a working Docker image on the ODOH Zerotier
-# network that contributes storage space. If you find anything wrong with
-# this script, please contact us and we will fix ASAP:
+# network that contributes storage space.
 #
-#	https://ourdataourhands.org/
-#	riseup@ourdataourhands.org
+# Report bugs here:
+# https://github.com/ourdataourhands/sh.ourdataourhands.org
 #
 # Logging
 exec 3>&1 4>&2
