@@ -141,6 +141,11 @@ if [ ! -d "$install_path/id" ]; then
 	echo -n "Generating keys... "
 	mkdir "$install_path/id" && ssh-keygen -q -t rsa -N "" -f "$install_path/id/id_rsa" -C $username
 	echo "done."
+	# Some Symlinks
+	echo -n "Symlinks... "
+	ln -s "/home/pi/.odohid" "$install_path/id/.odohid"
+	ln -s "$install_path/username" "$install_path/id/username"
+	echo "done."
 fi
 
 # Riseup!
