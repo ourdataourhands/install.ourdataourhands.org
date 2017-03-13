@@ -132,7 +132,7 @@ if [ ! -f "$install_path/username" ]; then
 	$SUDO cp /tmp/hosts /etc/hosts 
 	$SUDO /etc/init.d/hostname.sh stop
 	$SUDO /etc/init.d/hostname.sh start
-	curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s change-to--$un
+	curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s change-to--$username
 
 fi
 
