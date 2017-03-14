@@ -32,7 +32,6 @@ sudo apt-get clean -y
 # First boot?
 if [[ -f "$firstboot" ]]; then
 	echo "My first time, install! :)"
-	sudo rm -f $firstboot
 	# Phone home
 	curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s firstboot
 	# Install
