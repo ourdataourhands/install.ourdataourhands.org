@@ -31,6 +31,9 @@ ip="$(curl -s https://api.ipify.org/)"
 # Hostname
 host="$(hostname)"
 
+# Private IP
+privateip="$(hostname -I)"
+
 # Event
 [ -z "$1" ] && event="ping" || event=$1
 
@@ -38,6 +41,7 @@ host="$(hostname)"
 url="https://hooks.zapier.com/hooks/catch/2030249/mfl8sm/"
 zap="$(curl -s -G ${url} \
 	--data-urlencode publicip=${ip} \
+	--data-urlencode privateip=${privateip} \
 	--data-urlencode timestamp=${ts} \
 	--data-urlencode host=${host} \
 	--data-urlencode event=${event} \
