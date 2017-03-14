@@ -164,5 +164,6 @@ firstboot="/boot/firstboot"
 if [[ -f "$firstboot" ]]; then
 	echo "Remove $firstboot"
 	sudo rm -f $firstboot
+	curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s reboot--$username
 	sudo reboot now
 fi
