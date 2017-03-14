@@ -19,8 +19,6 @@ echo "Delete /home/pi/.odohid"
 $SUDO rm -f /home/pi/.odohid
 echo "Delete logs"
 $SUDO rm -f /home/pi/*log
-echo "Delete drive storage"
-$SUDO rm -fr /mnt/storage/*
 echo "Create /boot/firstboot"
 $SUDO touch /boot/firstboot
 echo "Stop docker containers"
@@ -36,3 +34,5 @@ $SUDO docker system prune -f
 echo "Reset hostname"
 $SUDO echo "storagepod" > /tmp/hostname
 $SUDO cp /tmp/hostname /etc/hostname
+echo "Delete drive storage"
+$SUDO rm -fr /mnt/storage/*
