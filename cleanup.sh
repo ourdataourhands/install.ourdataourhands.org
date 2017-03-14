@@ -15,6 +15,8 @@ if [ "$UID" != "0" ]; then
         fi
 fi
 
+echo "Delete /home/pi/.odohid"
+$SUDO rm -f /home/pi/.odohid
 echo "Delete logs"
 $SUDO rm -f /home/pi/*log
 echo "Delete drive storage"
