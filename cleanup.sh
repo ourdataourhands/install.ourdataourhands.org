@@ -35,4 +35,5 @@ echo "Reset hostname"
 $SUDO echo "storagepod" > /tmp/hostname
 $SUDO cp /tmp/hostname /etc/hostname
 echo "Delete drive storage"
+$SUDO rm -fr /mnt/storage/.local
 $SUDO rm -fr /mnt/storage/*
