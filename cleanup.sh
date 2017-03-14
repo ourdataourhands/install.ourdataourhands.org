@@ -44,7 +44,9 @@ echo "Reset hostname"
 $SUDO echo "storagepod" > /tmp/hostname
 $SUDO cp /tmp/hostname /etc/hostname
 echo "--------------------------------------------------"
-echo "Delete drive storage"
+echo "Delete drive storage and make lost+found"
 $SUDO rm -fr /mnt/storage/.local
 $SUDO rm -fr /mnt/storage/*
+cd /mnt/storage
+$SUDO mklost+found
 echo "--------------------------------------------------"
