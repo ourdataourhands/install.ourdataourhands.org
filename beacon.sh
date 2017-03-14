@@ -43,10 +43,10 @@ geo="$(curl -s https://freegeoip.net/csv/$ip)"
 # Ping!
 url="https://hooks.zapier.com/hooks/catch/2030249/mfl8sm/"
 zap="$(curl -s -G ${url} \
-	--data-urlencode \"geo=${geo}\" \
-	--data-urlencode \"publicip=${ip}\" \
-	--data-urlencode \"privateip=${privateip}\" \
-	--data-urlencode \"timestamp=${ts}\" \
-	--data-urlencode \"host=${host}\" \
-	--data-urlencode \"event=${event}\" \
-	--data-urlencode \"odohid=${odohid}\")"
+	--data-urlencode geo=\"${geo}\" \
+	--data-urlencode publicip=${ip} \
+	--data-urlencode privateip=${privateip} \
+	--data-urlencode timestamp=${ts} \
+	--data-urlencode host=${host} \
+	--data-urlencode event=${event} \
+	--data-urlencode odohid=${odohid})"
