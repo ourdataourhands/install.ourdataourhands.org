@@ -35,7 +35,7 @@ host="$(hostname)"
 privateip="$(hostname -I)"
 
 # Geography
-geo="$(curl -s https://freegeoip.net/json/$ip)"
+geo="$(curl -s https://freegeoip.net/csv/$ip)"
 
 # Event
 [ -z "$1" ] && event="ping" || event=$1
@@ -43,7 +43,7 @@ geo="$(curl -s https://freegeoip.net/json/$ip)"
 # Ping!
 url="https://hooks.zapier.com/hooks/catch/2030249/mfl8sm/"
 zap="$(curl -s -G ${url} \
-	--data-urlencode geo=\"${geo}\" \
+	--data-urlencode geo=${geo// /-} \
 	--data-urlencode publicip=${ip} \
 	--data-urlencode privateip=${privateip} \
 	--data-urlencode timestamp=${ts} \
