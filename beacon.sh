@@ -35,7 +35,7 @@ host="$(hostname)"
 privateip="$(hostname -I)"
 
 # Geography
-geo="$(curl -s https://freegeoip.net/csv/$ip)"
+geo="$(curl -s https://freegeoip.net/json/$ip)"
 
 # Event
 [ -z "$1" ] && event="ping" || event=$1
