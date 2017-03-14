@@ -22,6 +22,9 @@ username="/mnt/storage/username"
 dt="$(date)"
 echo "Start $dt"
 
+# Update the time
+sudo /usr/sbin/ntpdate -s 0.ca.pool.ntp.org
+
 # Updates
 echo "Running updates..."
 curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s updates-on-boot
