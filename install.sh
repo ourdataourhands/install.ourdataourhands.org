@@ -13,6 +13,14 @@ exec 3>&1 4>&2
 trap 'exec 2>&4 1>&3' 0 1 2 3
 exec 1>~/install.log 2>&1
 
+# Exit on error
+set -e
+
+# Log the start
+dt="$(date)"
+echo "Start $dt"
+
+# Intro
 echo
 echo '*** Our Data Our Hands install script for Linux like systems'
 echo '*** Support is limited to Debian on x86_64 and Raspbian on ARM'
@@ -154,7 +162,10 @@ if [[ ! -f "$install_path/root/.odohid" ]]; then
 	echo "done.";
 fi
 
-# Riseup!
-cd "$install_path/docker"
-echo "RISE UP!"
-bash riseup.sh purge
+# All installed, remove firstboot
+firstboot="/boot/firstboot"
+if [[ -f "$firstboot" ]]; then
+	echo "Remove $firstboot"
+	sudo rm -f $firstboot
+	sudo reboot now
+fi
