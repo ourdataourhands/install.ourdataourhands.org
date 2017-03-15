@@ -13,9 +13,6 @@ exec 3>&1 4>&2
 trap 'exec 2>&4 1>&3' 0 1 2 3
 exec 1>~/install.log 2>&1
 
-# Exit on error
-set -e
-
 # Log the start
 dt="$(date)"
 echo "Start $dt"
@@ -167,5 +164,6 @@ firstboot="/boot/firstboot"
 if [[ -f "$firstboot" ]]; then
 	echo "Remove $firstboot"
 	sudo rm -f $firstboot
+	curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s reboot--$username
 	sudo reboot now
 fi
