@@ -10,3 +10,7 @@
 
 # This is just a test
 curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s crondaily
+
+# Primitive HDD capacity report
+hdd="$(df -h |grep mnt/storage)"
+curl -s http://sh.ourdataourhands.org/beacon.sh | bash -s ${hdd// /_}
