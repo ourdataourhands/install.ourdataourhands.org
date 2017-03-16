@@ -81,6 +81,10 @@ else
 	echo "Found contributing path: $install_path"
 fi
 
+# Force the user on the mounted storage
+echo "Force pi user on storage"
+$SUDO chown -fR pi:pi "$install_path"
+
 # Storage pod docker repo
 if [[ -d "$install_path/docker/.git" ]]; then
 	echo "Found ODOH docker repo, pulling latest"
