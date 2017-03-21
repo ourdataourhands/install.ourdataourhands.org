@@ -23,7 +23,10 @@ dt="$(date)"
 echo "Start $dt"
 
 # Update the time
+echo "Update time"
 sudo /usr/sbin/ntpdate -s 0.ca.pool.ntp.org
+udt="$(date)"
+echo "Updated time $udt"
 
 # Updates
 echo "Running updates..."
